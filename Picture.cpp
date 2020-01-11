@@ -9,9 +9,9 @@ ushort RGBToGrayscale(uint red, uint green, uint blue)
 	return (red + green + blue) / 3;
 }
 
-ushort RGBToColorIndex(uint red, uint green, uint blue)
+uint RGBToColorIndex(uint red, uint green, uint blue)
 {
-	return 0;
+	return HSLToColorIndex(RGBToHSL(red, green, blue));
 }
 
 void ManageColors(const Mat& img, vector<uint>& out, COLOR_TYPE color_type, uint width, uint height)
@@ -27,14 +27,14 @@ void ManageColors(const Mat& img, vector<uint>& out, COLOR_TYPE color_type, uint
 
 	case GRAYSCALE:
 		for (uint i = 0; i != len; ++i) {
-			Vec3b temp = img.at<Vec3b>(floor(i/width), i % width);
+			Vec3b temp = img.at<Vec3b>(floor((int)(i / width)), i % width);
 			out.push_back(ceil((RGBToGrayscale(temp[2], temp[1], temp[0]) / 256.0) * 15));
 		}
 		break;
 
 	case COLOR:
 		for (uint i = 0; i != len; ++i) {
-			Vec3b temp = img.at<Vec3b>(floor(i / width), i % width);
+			Vec3b temp = img.at<Vec3b>(floor((int)(i / width)), i % width);
 			out.push_back(RGBToColorIndex(temp[2], temp[1], temp[0]));
 		}
 	}
@@ -74,7 +74,7 @@ void CPic::create(const string& path, double scaleX, double scaleY, COLOR_TYPE c
 
 void Pic::display() const
 {
-	CONSOLE_MANAGER.draw(data, color_data, width, height, 8, ct);
+	//CONSOLE_MANAGER.Draw(data, color_data, width, height, 8, ct);
 }
 
 Picture::Picture(const string& path, PICTURE_TYPE type, COLOR_TYPE color_type)

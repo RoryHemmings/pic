@@ -23,9 +23,16 @@ int main(int argc, char** argv)
 		}
 	}
 
-	Picture p("reub.png", ASCII_PIC, 0.5, 0.5, GRAYSCALE);
-	show(p);
-	waitKey(0);
+	vector<uint> colorData = { 1, 2, 3, 4, 5, 6 };
+
+	CONSOLE_MANAGER.SetConsoleFont(12, "consolas");
+	CONSOLE_MANAGER.SetConsoleColors(COLOR);
+	CONSOLE_MANAGER.SetConsoleSize(120, 30);
+	if (!CONSOLE_MANAGER.Draw({ 'a', 'b', 'c', 'd', 'e', 'f', 'g' }, colorData)) cout << "fail" << endl;
+
+	while (!GetAsyncKeyState(VK_SPACE)) {
+		Sleep(5);
+	}
 
 	return 0;
 }
@@ -38,4 +45,13 @@ int main(int argc, char** argv)
 		adjust font size
 		settings bar
 		inverted font and ascii colors
+		rehaul all colors to uchars
+
+		reform picture class
+		reform manager class
+		rewrite names to be understandable
+		use 3d distance
+		dithering
+		add cleanup
+		stop using namespaces
 */
