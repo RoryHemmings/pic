@@ -1,2 +1,2 @@
 # pic
-Image visualization for the windows terminal
+Improved version of my previous image visualization for the windows terminal
